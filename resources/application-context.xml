@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+ 		<property name="url" value="jdbc:mysql://localhost:3306/dxccomplaint"/>
+ 		<property name="username" value="root" />
+ 		<property name="password" value="root" />
+	</bean>
+	 <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	     <property name="dataSource" ref="dataSource"/>
+	     <property name="annotatedClasses">
+			<list>
+				<value>com.dxc.complaint.Complaint</value>
+				<value>com.dxc.complaint.Resolve</value>
+			</list>
+	</property>
+	<property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+      </props>
+    </property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	<property name="sessionFactory" ref ="mySessionFactory"/>
+	</bean>
+	
+</beans>
